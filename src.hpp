@@ -46,7 +46,7 @@ public:
     std::ostream &print(std::ostream &os, std::vector<const std::vector<pylist>*>& visited) const {
         if (is_int) {
             os << int_val;
-        } else {
+        } else if (list_val) {
             for (auto ptr : visited) {
                 if (ptr == list_val.get()) {
                     os << "[...]";
@@ -61,6 +61,8 @@ public:
             }
             os << "]";
             visited.pop_back();
+        } else {
+            os << "[]"; // Fallback for null list_val
         }
         return os;
     }
